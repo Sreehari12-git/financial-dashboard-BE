@@ -1,4 +1,5 @@
-import express from "express"
+import express from "express";
+import { setupSwagger } from "./swagger.js";
 import dotenv from "dotenv"
 import authRoutes from "./routes/authRoutes.js"
 import familyMembersRoutes from "./routes/familyMemberRoutes.js"
@@ -10,6 +11,7 @@ import memberRoutes from "./routes/memberRoutes.js"
 import cors from "cors"
 dotenv.config();
 import cookieParser from "cookie-parser"
+
 
 const app = express()
 
@@ -23,7 +25,9 @@ app.use(cors({
 const PORT = process.env.PORT
 
 app.use(express.json())
-app.use(cookieParser())
+app.use(cookieParser());
+setupSwagger(app);
+
 
 app.use("/", authRoutes)
 app.use("/family-members", familyMembersRoutes)

@@ -2,6 +2,35 @@ import {Router} from "express"
 import { loginUser, registerUser } from "../controllers/authController.js"
 import { logoutUser } from "../controllers/logoutController.js";
 
+/**
+ * @swagger
+ * tags:
+ *   - name: Auth
+ *     description: Authentication endpoints
+ * /login:
+ *   post:
+ *     summary: Log in a user
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *             required:
+ *               - email
+ *               - password
+ *     responses:
+ *       200:
+ *         description: Successful login
+ *       401:
+ *         description: Invalid credentials
+ */
 const router = Router();
 
 router.post("/login", loginUser)
