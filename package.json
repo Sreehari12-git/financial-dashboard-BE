@@ -2,7 +2,8 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.js",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "build": "tsx src/server.js"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^6.19.3",
