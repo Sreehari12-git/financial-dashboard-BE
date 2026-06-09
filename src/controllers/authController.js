@@ -154,3 +154,21 @@ export const getMe = async(req, res) => {
         res.status(500).json({ message: "Server error" });
     }
 }
+
+
+export const logoutUser = async(req, res) => {
+    res.clearCookie("token", {
+        httpOnly: false,
+        secure: true,
+        sameSite: 'none'
+    });
+
+    res.clearCookie("refreshToken", {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'none'
+    });
+
+    res.status(200).json({ message: "Logged out successfully" });
+}
+
