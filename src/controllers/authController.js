@@ -34,15 +34,31 @@ export const loginUser = async(req,res) => {
             },
             process.env.JWT_SECRET,
             {
-                expiresIn: "10d"
+                expiresIn: "2h"
             }
         );
+
+        const refreshToken = jwt.sign(
+            {
+                id: user.id
+            },
+            process.env.JWT_REFRESH_SECRET,
+            {
+                expiresIn: "7d"
+            }
+        )
 
         res.cookie("token", token, {
             httpOnly: false,
             secure: false,
-            maxAge: 10 * 24 * 60 * 60 * 1000
+            maxAge: 2 * 60 * 60 * 1000
         });
+
+        res.cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            secure: false,
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        })
 
         res.status(200).json({
             message: "Login successful",
