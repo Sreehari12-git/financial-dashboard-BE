@@ -5,11 +5,7 @@ import jwt from "jsonwebtoken"
 export const loginUser = async(req,res) => {
 
     try {
-        const { email, password } = req.body;
-        // Basic input validation
-        if (!email || !password) {
-            return res.status(400).json({ message: 'Email and password are required' });
-        }
+        const {email,password} = req.body;
 
 
         const user = await prisma.user.findUnique({
@@ -53,16 +49,16 @@ export const loginUser = async(req,res) => {
         )
 
         res.cookie('token', token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            httpOnly: false,
+            secure: true,
+            sameSite: 'none',
             maxAge: 2 * 60 * 60 * 1000
         });
 
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            secure: true,
+            sameSite: 'none',
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
